@@ -3,15 +3,16 @@
     
 <h1>{{ song.song_title }}</h1>
 
-<h3>Originally Performed by {{ song.original_artist }}</h3>
+<h4>Originally Performed by {{ song.original_artist }}</h4>
 <p>Nick Tuning: {{ song.nick_tuning }}</p>
 <p>Derek Tuning: {{ song.derek_tuning }}</p>
 <p>Joe Tuning: {{ song.joe_tuning }}</p>
 
+<h3>{{ song.song_title }}  was played at the following shows:</h3>
 <ul>
     {% for i in played_list %}
         <li>
-            <a href="/setlists/shows/{{ i.show }}">{{ i.show }}</a>
+        <a href="/setlists/shows/{{ i.show }}">{{ i.show }} - {{i.show.show_venue}}</a>
         </li>
     {% endfor %}
 </ul>

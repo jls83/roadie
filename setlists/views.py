@@ -8,6 +8,10 @@ def index(request):
     latest_show_list = Show.objects.order_by('-show_date')[:5]
     return render(request, 'setlists/index.html', {'latest_show_list': latest_show_list})
 
+def show_index(request):
+    latest_show_list = Show.objects.order_by('-show_date')[:5]
+    return render(request, 'setlists/show_index.html', {'latest_show_list': latest_show_list})
+
 def id_detail(request, show_id):
     try:
         s = Show.objects.get(pk=show_id)
@@ -32,3 +36,8 @@ def song_detail(request, title):
     except Song.DoesNotExist:
         raise Http404("Show does not exist!")
     return render(request, 'setlists/song_detail.html', {'song': song, 'played_list': played_list})
+
+def song_index(request):
+    #songs_all = Song.objects.all()
+    songs_all = Song.objects.order_by('song_title') #can probably be handled by the front-end shit later, just being picky for now
+    return render(request, 'setlists/song_index.html', {'songs_all': songs_all})

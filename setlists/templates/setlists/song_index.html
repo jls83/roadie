@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'setlists/style.css' %}">
+</head>
+<body>
+<h3>All Songs</h3>
+        {% for i in songs_all %}
+        <li>
+            <a href="/setlists/songs/{{ i.simple_title }}">{{ i }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
