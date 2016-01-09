@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 
-from .models import Show, Album, Song, Venue
+from .models import Show, Album, Song, Venue, ShowRelation, AlbumRelation
 # Create your views here.
 
 def index(request):
@@ -16,14 +16,14 @@ def detail(request, show_id):
         raise Http404("Show does not exist!")
     return render(request, 'setlists/show_detail.html', {'show': show, 'show_track_list': show_track_list})
 
-
-def date_detail(request, date):
+def date_detail(request, d):
     try:
-        show = Show.objects.get(show_date=date)
-        show_track_list = show.cleanList()
+        s = Show.objects.get(show_date=d)
+        s_list = s.show_tracks.all()
+        mas = [ShowRelation.objects.get(show=s, song=i) for i in s_list]
     except Show.DoesNotExist:
         raise Http404("Show does not exist!")
-    return render(request, 'setlists/show_detail.html', {'show': show, 'show_track_list': show_track_list})
+    return render(request, 'setlists/show_detail.html', {'s': s, 'mas': mas})
 
 def song_detail(request, title):
     try:

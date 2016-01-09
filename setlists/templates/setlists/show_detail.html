@@ -5,16 +5,16 @@
     <link rel="stylesheet" type="text/css" href="{% static 'setlists/style.css' %}">
 </head>
 <body>
-    <h1>{{ show.show_date }}</h1>
-    <h3>{{ show.show_venue }}</h3>
+    <h1>{{ s.show_date }}</h1>
+    <h3>{{ s.show_venue }}</h3>
 
-    <ol>
-    {% for i in show_track_list %}
+    <ul>
+    {% for i in mas %}
         <li>
-        <a href='{% url 'song_detail' i|slugify %}'>{{ i }}</a>
+        {{ i.track_position }} - {{ i.song.song_title }}
         </li>
     {% endfor %}
-    </ol>
+    </ul>
 </body>
 </html>
 
