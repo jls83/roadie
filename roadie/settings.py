@@ -74,14 +74,15 @@ WSGI_APPLICATION = 'roadie.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
+#DJANGO_MYSQL_PASS = os.environ.get('DJANGO_MYSQL_PASS')
+DJANGO_MYSQL_PASS = raw_input("MySQL Password: ")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'roadie',
         'USER': 'root',
-        'PASSWORD': os.environ['DJANGO_MYSQL_PASS'],
-        'HOST': '127.0.0.1',
+        'PASSWORD': DJANGO_MYSQL_PASS,
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
