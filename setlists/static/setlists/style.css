@@ -1,0 +1,22 @@
+body {
+    background-color: #333333;
+    color: #b3b3b3;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #b3b3b3;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+a:visited {
+    color: #737373;
+}
+
+h3 {
+    font-style: italic;
+}

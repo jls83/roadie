@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'setlists/style.css' %}">
+</head>
+<body>
+    <h1>{{ show.show_date }}</h1>
+    <h3>{{ show.show_venue }}</h3>
+
+    <ol>
+    {% for i in show_track_list %}
+        <li>
+        <a href='{% url 'song_detail' i|slugify %}'>{{ i }}</a>
+        </li>
+    {% endfor %}
+    </ol>
+</body>
+</html>
+
+<!--Can I access show.simple_title?-->

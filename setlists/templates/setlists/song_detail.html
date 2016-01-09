@@ -1,0 +1,9 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'setlists/style.css' %}">
+    
+<h1>{{ song.song_title }}</h1>
+
+<h3>Originally Performed by {{ song.original_artist }}</h3>
+<p>Nick Tuning: {{ song.nick_tuning }}</p>
+<p>Derek Tuning: {{ song.derek_tuning }}</p>
+<p>Joe Tuning: {{ song.joe_tuning }}</p>
