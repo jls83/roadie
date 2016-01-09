@@ -8,14 +8,11 @@
     <h1>{{ s.show_date }}</h1>
     <h3>{{ s.show_venue }}</h3>
 
-    <ul>
-    {% for i in mas %}
-        <li>
-        {{ i.track_position }} - {{ i.song.song_title }}
-        </li>
+    <p>
+    {% for song_obj in mas %}
+        <a href="{% url 'song_detail' song_obj.song.simple_title %}">{{ song_obj.song.song_title }}</a>{% if not forloop.last %}, {% endif %}
     {% endfor %}
-    </ul>
+    </p>
+
 </body>
 </html>
-
-<!--Can I access show.simple_title?-->

@@ -7,3 +7,11 @@
 <p>Nick Tuning: {{ song.nick_tuning }}</p>
 <p>Derek Tuning: {{ song.derek_tuning }}</p>
 <p>Joe Tuning: {{ song.joe_tuning }}</p>
+
+<ul>
+    {% for i in played_list %}
+        <li>
+            <a href="/setlists/shows/{{ i.show }}">{{ i.show }}</a>
+        </li>
+    {% endfor %}
+</ul>

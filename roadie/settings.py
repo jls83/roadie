@@ -74,7 +74,6 @@ WSGI_APPLICATION = 'roadie.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-#DJANGO_MYSQL_PASS = os.environ.get('DJANGO_MYSQL_PASS')
 DJANGO_MYSQL_PASS = raw_input("MySQL Password: ")
 DATABASES = {
     'default': {

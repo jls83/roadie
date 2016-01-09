@@ -8,19 +8,19 @@ def index(request):
     latest_show_list = Show.objects.order_by('-show_date')[:5]
     return render(request, 'setlists/index.html', {'latest_show_list': latest_show_list})
 
-def detail(request, show_id):
+def id_detail(request, show_id):
     try:
-        show = Show.objects.get(pk=show_id)
-        show_track_list = show.cleanList()
+        s = Show.objects.get(pk=show_id)
+        s_list = s.show_tracks.all()
+        mas = [ShowRelation.objects.get(show=s, song=i) for i in s_list]
     except Show.DoesNotExist:
         raise Http404("Show does not exist!")
-    return render(request, 'setlists/show_detail.html', {'show': show, 'show_track_list': show_track_list})
+    return render(request, 'setlists/show_detail.html', {'s': s, 'mas': mas})
 
 def date_detail(request, d):
     try:
         s = Show.objects.get(show_date=d)
-        s_list = s.show_tracks.all()
-        mas = [ShowRelation.objects.get(show=s, song=i) for i in s_list]
+        mas = ShowRelation.objects.filter(show=s)
     except Show.DoesNotExist:
         raise Http404("Show does not exist!")
     return render(request, 'setlists/show_detail.html', {'s': s, 'mas': mas})
@@ -28,6 +28,7 @@ def date_detail(request, d):
 def song_detail(request, title):
     try:
         song = Song.objects.get(simple_title=title)
+        played_list = ShowRelation.objects.filter(song=song)
     except Song.DoesNotExist:
         raise Http404("Show does not exist!")
-    return render(request, 'setlists/song_detail.html', {'song': song})
+    return render(request, 'setlists/song_detail.html', {'song': song, 'played_list': played_list})
