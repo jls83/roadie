@@ -5,9 +5,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'setlists/style.css' %}">
 </head>
 <body>
-    <h3>Recent Shows</h3>
+    <h3>All Shows</h3>
     <ul>
-        {% for i in latest_show_list %}
+        {% for i in show_all %}
         <li>
             <a href="/setlists/shows/{{ i }}">{{ i }}</a>
         </li>

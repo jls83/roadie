@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 
-from .models import Show, Album, Song, Venue, ShowRelation, AlbumRelation
+from .models import *
 # Create your views here.
 
 def index(request):
@@ -9,14 +9,14 @@ def index(request):
     return render(request, 'setlists/index.html', {'latest_show_list': latest_show_list})
 
 def show_index(request):
-    latest_show_list = Show.objects.order_by('-show_date')[:5]
-    return render(request, 'setlists/show_index.html', {'latest_show_list': latest_show_list})
+    show_all = Show.objects.order_by('-show_date')
+    #show_all = Show.objects.all() #can probably sort with a front-end implementation of some shit
+    return render(request, 'setlists/show_index.html', {'show_all': show_all})
 
 def id_detail(request, show_id):
     try:
         s = Show.objects.get(pk=show_id)
-        s_list = s.show_tracks.all()
-        mas = [ShowRelation.objects.get(show=s, song=i) for i in s_list]
+        mas = ShowRelation.objects.filter(show=s)
     except Show.DoesNotExist:
         raise Http404("Show does not exist!")
     return render(request, 'setlists/show_detail.html', {'s': s, 'mas': mas})
