@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-
+import getpass
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -74,7 +74,7 @@ WSGI_APPLICATION = 'roadie.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-DJANGO_MYSQL_PASS = raw_input("MySQL Password: ")
+DJANGO_MYSQL_PASS = getpass.getpass("MySQL Password: ")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
