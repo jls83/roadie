@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_list_or_404
+from django.shortcuts import render, get_list_or_404, get_object_or_404
 
 from .models import *
 
@@ -25,5 +25,13 @@ def show_detail(request, d):
     return render(request, 'setlists/show_detail.html', {'mas': mas})
 
 def song_detail(request, title):
-    played_list = get_list_or_404(ShowRelation, song__simple_title=title)
-    return render(request, 'setlists/song_detail.html', {'played_list': played_list})
+    s = Song.objects.get(simple_title=title)
+    if ShowRelation.objects.filter(song=s):
+        played_list = get_list_or_404(ShowRelation, song__simple_title=title)
+    else:
+        played_list = []
+    return render(request, 'setlists/song_detail.html', {'s': s, 'played_list': played_list})
+
+#def song_detail(request, title):
+#    played_list = get_list_or_404(ShowRelation, song__simple_title=title)
+#    return render(request, 'setlists/song_detail.html', {'played_list': played_list})
