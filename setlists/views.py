@@ -1,8 +1,6 @@
 from django.shortcuts import render, get_list_or_404
-from django.http import HttpResponse, Http404
 
 from .models import *
-# Create your views here.
 
 def index(request):
     latest_show_list = Show.objects.order_by('-show_date')[:5]
