@@ -20,7 +20,7 @@ def id_detail(request, show_id):
     mas = get_list_or_404(ShowRelation, show__id=show_id)
     return render(request, 'setlists/show_detail.html', {'mas': mas})
 
-def date_detail(request, d):
+def show_detail(request, d):
     mas = get_list_or_404(ShowRelation, show__show_date=d)
     return render(request, 'setlists/show_detail.html', {'mas': mas})
 

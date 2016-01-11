@@ -9,7 +9,7 @@
     <ul>
         {% for i in latest_show_list %}
         <li>
-            <a href="/setlists/shows/{{ i }}">{{ i }}</a>
+            <a href='{% url 'show_detail' i %}'>{{ i }}</a>
         </li>
         {% endfor %}
     </ul>
