@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_list_or_404
 from django.http import HttpResponse, Http404
 
 from .models import *
@@ -13,31 +13,19 @@ def show_index(request):
     #show_all = Show.objects.all() #can probably sort with a front-end implementation of some shit
     return render(request, 'setlists/show_index.html', {'show_all': show_all})
 
-def id_detail(request, show_id):
-    try:
-        s = Show.objects.get(pk=show_id)
-        mas = ShowRelation.objects.filter(show=s)
-    except Show.DoesNotExist:
-        raise Http404("Show does not exist!")
-    return render(request, 'setlists/show_detail.html', {'s': s, 'mas': mas})
-
-def date_detail(request, d):
-    try:
-        s = Show.objects.get(show_date=d)
-        mas = ShowRelation.objects.filter(show=s)
-    except Show.DoesNotExist:
-        raise Http404("Show does not exist!")
-    return render(request, 'setlists/show_detail.html', {'s': s, 'mas': mas})
-
-def song_detail(request, title):
-    try:
-        song = Song.objects.get(simple_title=title)
-        played_list = ShowRelation.objects.filter(song=song)
-    except Song.DoesNotExist:
-        raise Http404("Show does not exist!")
-    return render(request, 'setlists/song_detail.html', {'song': song, 'played_list': played_list})
-
 def song_index(request):
     #songs_all = Song.objects.all()
     songs_all = Song.objects.order_by('song_title') #can probably be handled by the front-end shit later, just being picky for now
     return render(request, 'setlists/song_index.html', {'songs_all': songs_all})
+
+def id_detail(request, show_id):
+    mas = get_list_or_404(ShowRelation, show__id=show_id)
+    return render(request, 'setlists/show_detail.html', {'mas': mas})
+
+def date_detail(request, d):
+    mas = get_list_or_404(ShowRelation, show__show_date=d)
+    return render(request, 'setlists/show_detail.html', {'mas': mas})
+
+def song_detail(request, title):
+    played_list = get_list_or_404(ShowRelation, song__simple_title=title)
+    return render(request, 'setlists/song_detail.html', {'played_list': played_list})

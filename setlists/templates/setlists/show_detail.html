@@ -5,8 +5,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'setlists/style.css' %}">
 </head>
 <body>
-    <h1>{{ s.show_date }}</h1>
-    <h3>{{ s.show_venue }}</h3>
+    <h1>{{ mas.0.show.show_date }}</h1>
+    <h3>{{ mas.0.show.show_venue }}</h3>
 
     <p>
     {% for song_obj in mas %}

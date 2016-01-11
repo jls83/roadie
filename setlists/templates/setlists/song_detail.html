@@ -1,14 +1,14 @@
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'setlists/style.css' %}">
     
-<h1>{{ song.song_title }}</h1>
+<h1>{{ played_list.0.song.song_title }}</h1>
 
-<h4>Originally Performed by {{ song.original_artist }}</h4>
-<p>Nick Tuning: {{ song.nick_tuning }}</p>
-<p>Derek Tuning: {{ song.derek_tuning }}</p>
-<p>Joe Tuning: {{ song.joe_tuning }}</p>
+<h4>Originally Performed by {{ played_list.0.song.original_artist }}</h4>
+<p>Nick Tuning: {{ played_list.0.song.nick_tuning }}</p>
+<p>Derek Tuning: {{ played_list.0.song.derek_tuning }}</p>
+<p>Joe Tuning: {{ played_list.0.song.joe_tuning }}</p>
 
-<h3>{{ song.song_title }}  was played at the following shows:</h3>
+<h3>{{ played_list.0.song.song_title }}  was played at the following shows:</h3>
 <ul>
     {% for i in played_list %}
         <li>
