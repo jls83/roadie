@@ -5,16 +5,19 @@ body {
 }
 
 a {
-    font-weight: bold;
-    text-decoration: none;
-    color: #b3b3b3;
+    text-decoration: underline;
+    color: #d39b46;
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 a:visited {
-    color: #737373;
+    color: #b9812c;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #d9d9d9;
 }
 
 h3 {
