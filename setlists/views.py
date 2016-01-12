@@ -32,6 +32,23 @@ def song_detail(request, title):
         played_list = []
     return render(request, 'setlists/song_detail.html', {'s': s, 'played_list': played_list})
 
-#def song_detail(request, title):
-#    played_list = get_list_or_404(ShowRelation, song__simple_title=title)
-#    return render(request, 'setlists/song_detail.html', {'played_list': played_list})
+def song_not_seen(request, title):
+    show_list = Show.objects.all()
+    show_list_date = [ i.show_date for i in show_list ]
+    show_list_date.sort(reverse=True)
+
+    s = Song.objects.get(simple_title=title)
+    if ShowRelation.objects.filter(song=s):
+        song_l_version = ShowRelation.objects.filter(song=s).latest('show__show_date')
+        song_lv_date = song_l_version.show.show_date
+        song_not_seen = show_list_date.index(song_lv_date)
+    else:
+        song_not_seen = []
+        song_l_version = []
+
+    ################################
+#    song_l_version = ShowRelation.objects.filter(song__simple_title=title).latest('show__show_date')
+#    song_lv_date = song_l_version.show.show_date
+#    song_not_seen = show_list_date.index(song_lv_date)
+
+    return render(request, 'setlists/song_not_seen.html', {'song_l_version': song_l_version, 'song_not_seen': song_not_seen, 's': s})

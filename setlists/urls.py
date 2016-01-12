@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^shows/(?P<d>\d{4}-\d{2}-\d{2})/$', views.show_detail, name='show_detail'),
     url(r'^songs/$', views.song_index, name='song_index'),
     url(r'^songs/(?P<title>[\w-]+)/$', views.song_detail, name='song_detail'),
+    url(r'^notseen/(?P<title>[\w-]+)/$', views.song_not_seen, name='song_not_seen'),
 ]

@@ -1,0 +1,7 @@
+{% if song_not_seen %}
+    {{ song_l_version.show.show_date }}
+    {{ s.song_title }}
+    {{ song_not_seen }}
+{% else %}
+    {{ s.song_title }} has never been played
+{% endif %}
