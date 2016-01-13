@@ -33,16 +33,21 @@ class SongDetailView(generic.DetailView):
         input_simple_title = self.kwargs['title']
         context['played_list'] = get_list_or_404(ShowRelation, song__simple_title=input_simple_title)
         return context
+
+class ShowDetailView(generic.ListView):
+    model = Show
+    template_name = 'setlists/show_detail.html'
+    context_object_name = 'show_obj'
+    slug_field = 'show_date'
+    slug_url_kwarg = 's_d'
+
+    def get_context_data(self, **kwargs):
+        context = super(ShowDetailView, self).get_context_data(**kwargs)
+        input_q = self.kwargs['s_d']
+        context['mas'] = ShowRelation.objects.filter(show__show_date=input_q).order_by('track_position')
+        return context
+
 ##############################################################
-def id_detail(request, show_id):
-    mas = get_list_or_404(ShowRelation, show__id=show_id)
-    return render(request, 'setlists/show_detail.html', {'mas': mas})
-
-def show_detail(request, d):
-    mas = get_list_or_404(ShowRelation.objects.order_by('track_position'), show__show_date=d)
-    return render(request, 'setlists/show_detail.html', {'mas': mas})
-
-
 def song_not_seen(request, title):
     show_list = Show.objects.all()
     show_list_date = [ i.show_date for i in show_list ]
