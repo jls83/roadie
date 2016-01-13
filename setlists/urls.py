@@ -4,8 +4,8 @@ from . import views
 
 app_name = 'setlists'
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^shows/$', views.show_index, name='show_index'),
+    url(r'^$', views.ShowIndexView.as_view(), name='index'),
+    url(r'^shows/$', views.RecentShowView.as_view(), name='show_index'),
     url(r'^show_id/(?P<show_id>[0-9]+)/$', views.id_detail, name='id_detail'),
     url(r'^shows/(?P<d>\d{4}-\d{2}-\d{2})/$', views.show_detail, name='show_detail'),
     url(r'^songs/$', views.song_index, name='song_index'),

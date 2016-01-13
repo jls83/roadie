@@ -1,15 +1,17 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
-
+from django.views import generic
 from .models import *
 
-def index(request):
-    latest_show_list = Show.objects.order_by('-show_date')[:5]
-    return render(request, 'setlists/index.html', {'latest_show_list': latest_show_list})
+class ShowIndexView(generic.ListView):
+    template_name = 'setlists/index.html'
+    context_object_name = 'latest_show_list'
+    list_obj = Show.objects.order_by('-show_date')
 
-def show_index(request):
-    show_all = Show.objects.order_by('-show_date')
-    #show_all = Show.objects.all() #can probably sort with a front-end implementation of some shit
-    return render(request, 'setlists/show_index.html', {'show_all': show_all})
+    def get_queryset(self):
+        return self.list_obj
+
+class RecentShowView(ShowIndexView):
+    list_obj = Show.objects.order_by('-show_date')[:5]
 
 def song_index(request):
     #songs_all = Song.objects.all()
@@ -45,10 +47,4 @@ def song_not_seen(request, title):
     else:
         song_not_seen = []
         song_l_version = []
-
-    ################################
-#    song_l_version = ShowRelation.objects.filter(song__simple_title=title).latest('show__show_date')
-#    song_lv_date = song_l_version.show.show_date
-#    song_not_seen = show_list_date.index(song_lv_date)
-
     return render(request, 'setlists/song_not_seen.html', {'song_l_version': song_l_version, 'song_not_seen': song_not_seen, 's': s})
