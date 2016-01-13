@@ -4,7 +4,7 @@ from .models import *
 
 class ShowIndexView(generic.ListView):
     template_name = 'setlists/index.html'
-    context_object_name = 'latest_show_list'
+    context_object_name = 'show_list'
     list_obj = Show.objects.order_by('-show_date')
 
     def get_queryset(self):
