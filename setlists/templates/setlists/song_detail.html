@@ -1,13 +1,12 @@
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'setlists/style.css' %}">
-    
-<h1>{{ s.song_title }}</h1>
+<h1>{{ song_info.song_title }}</h1>
 
-<h4>Originally Performed by {{ s.original_artist }}</h4>
-<p>Nick Tuning: {{ s.nick_tuning }}</p>
-<p>Derek Tuning: {{ s.derek_tuning }}</p>
-<p>Joe Tuning: {{ s.joe_tuning }}</p>
-<h3>{{ s.song_title }}  was played at the following shows:</h3>
+<h4>Originally Performed by {{ song_info.original_artist }}</h4>
+<p>Nick Tuning: {{ song_info.nick_tuning }}</p>
+<p>Derek Tuning: {{ song_info.derek_tuning }}</p>
+<p>Joe Tuning: {{ song_info.joe_tuning }}</p>
+<h3>{{ song_info.song_title }}  was played at the following shows:</h3>
 <ul>
     {% for i in played_list %}
         <li>
@@ -15,4 +14,4 @@
         </li>
     {% endfor %}
 </ul>
-<a href='{% url 'song_not_seen' s.simple_title %}'>{{ s.song_title }} Not Seen Page</a>
+{#<a href='{% url 'song_not_seen' song_info.simple_title %}'>{{ song_info.song_title }} Not Seen Page</a>#}

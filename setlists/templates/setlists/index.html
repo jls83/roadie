@@ -7,7 +7,7 @@
 <body>
     <h3>Recent Shows</h3>
     <ul>
-        {% for i in latest_show_list %}
+        {% for i in show_list %}
         <li>
             <a href='{% url 'show_detail' i %}'>{{ i }}</a>
         </li>

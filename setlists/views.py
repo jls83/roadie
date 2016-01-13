@@ -13,11 +13,27 @@ class ShowIndexView(generic.ListView):
 class RecentShowView(ShowIndexView):
     list_obj = Show.objects.order_by('-show_date')[:5]
 
-def song_index(request):
-    #songs_all = Song.objects.all()
-    songs_all = Song.objects.order_by('song_title') #can probably be handled by the front-end shit later, just being picky for now
-    return render(request, 'setlists/song_index.html', {'songs_all': songs_all})
+class SongIndexView(generic.ListView):
+    template_name = 'setlists/song_index.html'
+    context_object_name = 'songs_list'
+    songs_list = Song.objects.order_by('song_title')
 
+    def get_queryset(self):
+        return self.songs_list
+
+class SongDetailView(generic.DetailView):
+    model = Song
+    template_name = 'setlists/song_detail.html'
+    context_object_name = 'song_info'
+    slug_field = 'simple_title'
+    slug_url_kwarg = 'title'
+
+    def get_context_data(self, **kwargs):
+        context = super(SongDetailView, self).get_context_data(**kwargs)
+        input_simple_title = self.kwargs['title']
+        context['played_list'] = get_list_or_404(ShowRelation, song__simple_title=input_simple_title)
+        return context
+##############################################################
 def id_detail(request, show_id):
     mas = get_list_or_404(ShowRelation, show__id=show_id)
     return render(request, 'setlists/show_detail.html', {'mas': mas})
@@ -26,13 +42,6 @@ def show_detail(request, d):
     mas = get_list_or_404(ShowRelation.objects.order_by('track_position'), show__show_date=d)
     return render(request, 'setlists/show_detail.html', {'mas': mas})
 
-def song_detail(request, title):
-    s = Song.objects.get(simple_title=title)
-    if ShowRelation.objects.filter(song=s):
-        played_list = get_list_or_404(ShowRelation, song__simple_title=title)
-    else:
-        played_list = []
-    return render(request, 'setlists/song_detail.html', {'s': s, 'played_list': played_list})
 
 def song_not_seen(request, title):
     show_list = Show.objects.all()

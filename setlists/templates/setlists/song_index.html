@@ -6,7 +6,7 @@
 </head>
 <body>
 <h3>All Songs</h3>
-        {% for i in songs_all %}
+        {% for i in songs_list %}
         <li>
             <a href="{% url "song_detail" i.simple_title %}">{{ i }}</a>
         </li>
