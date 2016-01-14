@@ -43,35 +43,30 @@ class SongDetailView(generic.DetailView):
     slug_field = 'simple_title'
     slug_url_kwarg = 'title'
 
+#    def song_not_seen(self, title):
+#        s_l = ShowIndexView.date_list
+#        l_version = []
+#        last_seen = []
+#        if ShowRelation.objects.filter(song__simple_title=title):
+#            l_version = ShowRelation.objects.filter(song__simple_title=title).latest('show__show_date')
+#            lv_date = l_version.show.show_date
+#            last_seen = s_l.index(lv_date)
+#        return (l_version, last_seen)
+
     def song_not_seen(self, title):
         s_l = ShowIndexView.date_list
-        if ShowRelation.objects.filter(song__simple_title=title):
-            l_version = ShowRelation.objects.filter(song__simple_title=title).latest('show__show_date')
+        l_version = []
+        last_seen = []
+        s = ShowRelation.objects.filter(song__simple_title=title)
+        if s:
+            l_version = s.latest('show__show_date')
             lv_date = l_version.show.show_date
             last_seen = s_l.index(lv_date)
-        else:
-            l_version = []
-            last_seen = []
         return (l_version, last_seen)
 
     def get_context_data(self, **kwargs):
         input_simple_title = self.kwargs['title']
         context = super(SongDetailView, self).get_context_data(**kwargs)
-        context['played_list'] = get_list_or_404(ShowRelation, song__simple_title=input_simple_title)
+        context['played_list'] = get_list_or_404(ShowRelation.objects.order_by('-show__show_date'), song__simple_title=input_simple_title)
         context['last_seen_info'] = self.song_not_seen(input_simple_title)
         return context
-##############################################################
-#def song_not_seen(request, title):
-#    show_list = Show.objects.all()
-#    show_list_date = [ i.show_date for i in show_list ]
-#    show_list_date.sort(reverse=True)
-#
-#    s = Song.objects.get(simple_title=title)
-#    if ShowRelation.objects.filter(song=s):
-#        song_l_version = ShowRelation.objects.filter(song=s).latest('show__show_date')
-#        song_lv_date = song_l_version.show.show_date
-#        song_not_seen = show_list_date.index(song_lv_date)
-#    else:
-#        song_not_seen = []
-#        song_l_version = []
-#    return render(request, 'setlists/song_not_seen.html', {'song_l_version': song_l_version, 'song_not_seen': song_not_seen, 's': s})
