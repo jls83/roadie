@@ -1,24 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'setlists/style.css' %}">
-</head>
-<body>
-    <h1>{{ mas.0.show.show_date }}</h1>
-    <h3>{{ mas.0.show.show_venue }}</h3>
+{% extends "setlists/base.html" %}
 
-    <p>{# I had to kludge this together to get the comma separation working correctly#}
-    {% for song_obj in mas %}
-        <a href="{% url "song_detail" song_obj.song.simple_title %}">{{ song_obj.song.song_title }}</a>{% if not forloop.last %}, {% endif %}
-    {% endfor %}
-    </p>
+{% block title %}Roadie -  {{ mas.0.show }}{% endblock %}
 
-    {% if mas.0.show.show_notes %}
-        <p>Notes: {{ mas.0.show.show_notes }}</p>
-    {% endif %}
-    {% if mas.0.show.show_stream %}    
-        <p>Stream: {{ mas.0.show.show_stream }}</p>
-    {% endif %}
-</body>
-</html>
+{% block content %}
+
+<h1>{{ mas.0.show.show_date }}</h1>
+<h3>{{ mas.0.show.show_venue }}</h3>
+
+<p>{# I had to kludge this together to get the comma separation working correctly#}
+{% for song_obj in mas %}
+    <a href="{% url "song_detail" song_obj.song.simple_title %}">{{ song_obj.song.song_title }}</a>{% if not forloop.last %}, {% endif %}
+{% endfor %}
+</p>
+
+{% if mas.0.show.show_notes %}
+    <p>Notes: {{ mas.0.show.show_notes }}</p>
+{% endif %}
+{% if mas.0.show.show_stream %}    
+    <p>Stream: {{ mas.0.show.show_stream }}</p>
+{% endif %}
+
+{% endblock %}

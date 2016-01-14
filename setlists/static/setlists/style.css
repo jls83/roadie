@@ -4,6 +4,25 @@ body {
     font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 
+.nav {
+    width: 100%;
+    float: left;
+    margin: 0 0 3em 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav li {
+    display: inline-block;
+    color: #ffffff;
+}
+
 a {
     text-decoration: underline;
     color: #d39b46;
@@ -23,3 +42,4 @@ h1, h2, h3, h4, h5, h6 {
 h3 {
     font-style: italic;
 }
+
