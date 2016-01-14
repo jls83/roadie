@@ -6,7 +6,7 @@
 <p>Nick Tuning: {{ song_info.nick_tuning }}</p>
 <p>Derek Tuning: {{ song_info.derek_tuning }}</p>
 <p>Joe Tuning: {{ song_info.joe_tuning }}</p>
-<h3>{{ song_info.song_title }}  was played at the following shows:</h3>
+<h3>{{ song_info.song_title }}  has been played {{ played_list|length }} times at the following shows:</h3>
 <ul>
     {% for i in played_list %}
         <li>
