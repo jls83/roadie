@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-    {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'setlists/style.css' %}">
-</head>
-<body>
-    <h3>Recent Shows</h3>
-    <ul>
-        {% for i in show_list %}
-        <li>
-            <a href='{% url 'show_detail' i %}'>{{ i }}</a>
-        </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "setlists/base.html" %}
 
+{% block title %}Roadie -  Recent Shows{% endblock %}
+
+{% block content %}
+
+<h3>Recent Shows</h3>
+<ul>
+    {% for i in show_list %}
+    <li>
+        <a href="{% url "show_detail" i %}">{{ i }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

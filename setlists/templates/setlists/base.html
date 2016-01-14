@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'setlists/style.css' %}">
+        <title>{% block title %}Roadie{% endblock %}</title>
+    </head>
+    <body>
+        <div class='nav'>
+            {% block nav %}
+            <ul>
+                <li><a href="{% url "show_index" %}">Shows</a></li>
+                <li><a href="{% url "song_index" %}">Songs</a></li>
+            </ul>
+            {% endblock %}
+        </div>
+
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>

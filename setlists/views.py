@@ -7,6 +7,7 @@ class ShowIndexView(generic.ListView):
     context_object_name = 'show_list'
     list_obj = Show.objects.order_by('-show_date')
     date_list = [ i.show_date for i in list_obj ]
+    title_type = "All"
 
     def get_queryset(self):
         return self.list_obj
@@ -14,6 +15,7 @@ class ShowIndexView(generic.ListView):
 class RecentShowView(ShowIndexView): #can probably be replaced with a front-end thing
     template_name = 'setlists/index.html'
     list_obj = Show.objects.order_by('-show_date')[:5]
+    title_type = "Recent"
 
 class ShowDetailView(generic.ListView):
     model = Show
