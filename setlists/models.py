@@ -20,9 +20,14 @@ class Song(models.Model):
         
 class Album(models.Model):
     album_title = models.CharField(max_length=100)
+    simple_title = models.SlugField(default='', editable=False)
     album_date = models.IntegerField()
     album_stream = models.URLField(blank=True)
     album_tracks = models.ManyToManyField(Song, through='AlbumRelation')
+
+    def save(self, *args, **kwargs):
+        self.simple_title = slugify(self.album_title)
+        super(Album, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.album_title

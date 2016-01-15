@@ -2,20 +2,26 @@ from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.views import generic
 from .models import *
 
-class ShowIndexView(generic.ListView):
-    template_name = 'setlists/show_index.html'
-    context_object_name = 'show_list'
-    list_obj = Show.objects.order_by('-show_date')
-    date_list = [ i.show_date for i in list_obj ]
-    title_type = "All"
+class MasterIndexView(generic.ListView):
+    list_obj = []
 
     def get_queryset(self):
         return self.list_obj
 
+class ShowIndexView(MasterIndexView):
+    template_name = 'setlists/show_index.html'
+    context_object_name = 'show_list'
+    list_obj = Show.objects.order_by('-show_date')
+    date_list = [ i.show_date for i in list_obj ]
+
+class AlbumIndexView(MasterIndexView):
+    template_name = 'setlists/album_index.html'
+    context_object_name = 'album_list'
+    list_obj = Album.objects.order_by('-album_date')
+
 class RecentShowView(ShowIndexView): #can probably be replaced with a front-end thing
     template_name = 'setlists/index.html'
     list_obj = Show.objects.order_by('-show_date')[:5]
-    title_type = "Recent"
 
 class ShowDetailView(generic.ListView):
     model = Show
@@ -31,6 +37,22 @@ class ShowDetailView(generic.ListView):
         input_d = self.kwargs['s_d']
         context = super(ShowDetailView, self).get_context_data(**kwargs)
         context['mas'] = self.show_list_gen(input_d)
+        return context
+
+class AlbumDetailView(generic.ListView):
+    model = Album
+    template_name = 'setlists/album_detail.html'
+    context_object_name = 'album_obj'
+    slug_field = 'album_title'
+    slug_url_kwarg = 'album'
+
+    def album_list_gen(self, album_t):
+        return AlbumRelation.objects.filter(album__simple_title=album_t).order_by('track_position')
+
+    def get_context_data(self, **kwargs):
+        input_t = self.kwargs['album']
+        context = super(AlbumDetailView, self).get_context_data(**kwargs)
+        context['album_tracklist'] = self.album_list_gen(input_t)
         return context
 
 class SongIndexView(generic.ListView):
@@ -62,9 +84,20 @@ class SongDetailView(generic.DetailView):
     def played_list_gen(self, title):
         return get_list_or_404(ShowRelation.objects.order_by('-show__show_date'), song__simple_title=title)
 
+    def album_list_gen(self, title):
+        a = AlbumRelation.objects.filter(song__simple_title=title)
+        if a:
+            result = get_list_or_404(AlbumRelation.objects.order_by('-album__album_date'), song__simple_title=title)
+        else:
+            result =  []
+        return result
+#    def album_list_gen(self, title):
+#        return get_list_or_404(AlbumRelation.objects.order_by('-album__album_date'), song__simple_title=title)
+
     def get_context_data(self, **kwargs):
         in_s_t = self.kwargs['title'] # simple_title from URL redirect
         context = super(SongDetailView, self).get_context_data(**kwargs)
         context['played_list'] = self.played_list_gen(in_s_t)
+        context['album_list'] = self.album_list_gen(in_s_t)
         context['last_seen_info'] = self.song_not_seen(in_s_t)
         return context

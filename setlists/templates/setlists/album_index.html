@@ -1,0 +1,16 @@
+{% extends "setlists/base.html" %}
+
+{% block title %}Roadie -  All Shows{% endblock %}
+
+{% block content %}
+
+<h3>All Albums</h3>
+<ul>
+    {% for i in album_list %}
+    <li>
+        <a href="{% url "album_detail" i.simple_title %}">{{ i }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

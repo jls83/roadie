@@ -5,9 +5,10 @@
 <h1>{{ song_info.song_title }}</h1>
 
 <h4>Originally Performed by {{ song_info.original_artist }}</h4>
-<p>Nick Tuning: {{ song_info.nick_tuning }}</p>
-<p>Derek Tuning: {{ song_info.derek_tuning }}</p>
-<p>Joe Tuning: {{ song_info.joe_tuning }}</p>
+
+{% if album_list %}
+<h4>Track {{ album_list.0.track_position }} from the album <a href="{% url "album_detail" album_list.0.album.simple_title %}">{{ album_list.0.album }}</a></h4>
+{% endif %}
 <h3>{{ song_info.song_title }}  has been played {{ played_list|length }} times at the following shows:</h3>
 <ul>
     {% for i in played_list %}
@@ -22,5 +23,10 @@
 {% else %}
 {{ song_info.song_title }} was played at the last show, <a href='{% url 'show_detail' last_seen_info.0.show %}'>{{ last_seen_info.0.show }}</a>.
 {% endif %}
+
+
+<p>Nick Tuning: {{ song_info.nick_tuning }}</p>
+<p>Derek Tuning: {{ song_info.derek_tuning }}</p>
+<p>Joe Tuning: {{ song_info.joe_tuning }}</p>
 
 {% endblock %}
