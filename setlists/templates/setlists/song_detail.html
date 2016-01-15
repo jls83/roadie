@@ -7,23 +7,33 @@
 <h4>Originally Performed by {{ song_info.original_artist }}</h4>
 
 {% if album_list %}
-<h4>Track {{ album_list.0.track_position }} from the album <a href="{% url "album_detail" album_list.0.album.simple_title %}">{{ album_list.0.album }}</a></h4>
+    <h4>
+        Track {{ album_list.0.track_position }} from the album <a href="{% url "album_detail" album_list.0.album.simple_title %}">{{ album_list.0.album }}</a>
+    </h4>
 {% endif %}
-<h3>{{ song_info.song_title }}  has been played {{ played_list|length }} times at the following shows:</h3>
-<ul>
-    {% for i in played_list %}
-        <li>
-            <a href='{% url 'show_detail' i.show %}'>{{ i.show }} - {{i.show.show_venue}}</a>
-        </li>
-    {% endfor %}
-</ul>
 
-{% if last_seen_info.1 > 0 %}
-    {{ song_info.song_title }} has not been played since <a href='{% url 'show_detail' last_seen_info.0.show %}'>{{ last_seen_info.0.show }}</a>, a {{ last_seen_info.1}} show gap.
+{% if played_list %}
+    <h3>{{ song_info.song_title }} has been played {{ played_list|length }} times at the following shows:</h3>
+    <ul>
+        {% for i in played_list %}
+            <li>
+                <a href='{% url 'show_detail' i.show %}'>{{ i.show }} - {{i.show.show_venue}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if last_seen_info.1 > 0 %}
+        <p>
+        {{ song_info.song_title }} has not been played since <a href='{% url 'show_detail' last_seen_info.0.show %}'>{{ last_seen_info.0.show }}</a>, a {{ last_seen_info.1 }} show gap.
+        </p>
+    {% else %}
+        <p>
+        {{ song_info.song_title }} was played at the last show, <a href='{% url 'show_detail' last_seen_info.0.show %}'>{{ last_seen_info.0.show }}</a>.
+        </p>
+    {% endif %}
 {% else %}
-{{ song_info.song_title }} was played at the last show, <a href='{% url 'show_detail' last_seen_info.0.show %}'>{{ last_seen_info.0.show }}</a>.
+    <h3>{{ song_info.song_title }} has never been played at a show!</h3>
 {% endif %}
-
 
 <p>Nick Tuning: {{ song_info.nick_tuning }}</p>
 <p>Derek Tuning: {{ song_info.derek_tuning }}</p>

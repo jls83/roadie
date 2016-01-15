@@ -14,14 +14,22 @@ class ShowIndexView(MasterIndexView):
     list_obj = Show.objects.order_by('-show_date')
     date_list = [ i.show_date for i in list_obj ]
 
+class RecentShowView(ShowIndexView): #can probably be replaced with a front-end thing
+    template_name = 'setlists/index.html'
+    list_obj = Show.objects.order_by('-show_date')[:5]
+
 class AlbumIndexView(MasterIndexView):
     template_name = 'setlists/album_index.html'
     context_object_name = 'album_list'
     list_obj = Album.objects.order_by('-album_date')
 
-class RecentShowView(ShowIndexView): #can probably be replaced with a front-end thing
-    template_name = 'setlists/index.html'
-    list_obj = Show.objects.order_by('-show_date')[:5]
+class SongIndexView(generic.ListView):
+    template_name = 'setlists/song_index.html'
+    context_object_name = 'songs_list'
+    songs_list = Song.objects.order_by('song_title')
+
+    def get_queryset(self):
+        return self.songs_list
 
 class ShowDetailView(generic.ListView):
     model = Show
@@ -55,14 +63,6 @@ class AlbumDetailView(generic.ListView):
         context['album_tracklist'] = self.album_list_gen(input_t)
         return context
 
-class SongIndexView(generic.ListView):
-    template_name = 'setlists/song_index.html'
-    context_object_name = 'songs_list'
-    songs_list = Song.objects.order_by('song_title')
-
-    def get_queryset(self):
-        return self.songs_list
-
 class SongDetailView(generic.DetailView):
     model = Song
     template_name = 'setlists/song_detail.html'
@@ -82,17 +82,18 @@ class SongDetailView(generic.DetailView):
         return (l_version, last_seen)
 
     def played_list_gen(self, title):
-        return get_list_or_404(ShowRelation.objects.order_by('-show__show_date'), song__simple_title=title)
+        p = ShowRelation.objects.filter(song__simple_title=title)
+        result = []
+        if p:
+            result = get_list_or_404(ShowRelation.objects.order_by('-show__show_date'), song__simple_title=title)
+        return result
 
     def album_list_gen(self, title):
         a = AlbumRelation.objects.filter(song__simple_title=title)
+        result = []
         if a:
             result = get_list_or_404(AlbumRelation.objects.order_by('-album__album_date'), song__simple_title=title)
-        else:
-            result =  []
         return result
-#    def album_list_gen(self, title):
-#        return get_list_or_404(AlbumRelation.objects.order_by('-album__album_date'), song__simple_title=title)
 
     def get_context_data(self, **kwargs):
         in_s_t = self.kwargs['title'] # simple_title from URL redirect
