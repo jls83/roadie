@@ -9,7 +9,10 @@
 
 <p>{# I had to kludge this together to get the comma separation working correctly#}
 {% for song_obj in mas %}
-    <a href="{% url "song_detail" song_obj.song.simple_title %}">{{ song_obj.song.song_title }}</a>{% if not forloop.last %}, {% endif %}
+    <a href="{% url "song_detail" song_obj.song.simple_title %}">
+        {{ song_obj.song.song_title }}</a>{% if not forloop.last %}{% if song_obj.track_segue %} > {% else %}, {% endif %}
+    
+    {% endif %}
 {% endfor %}
 </p>
 
