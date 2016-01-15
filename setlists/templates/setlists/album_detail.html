@@ -1,9 +1,8 @@
 {% extends "setlists/base.html" %}
 
-{% block title %}Roadie -  {{ album_obj.0.album_title }}{% endblock %}
-
+{% block title %}Roadie -  {{ album_tracklist.0.album.album_title }}{% endblock %}
 {% block content %}
-<h1>{{ album_obj.0.album_title}}</h1>
+<h1>{{ album_tracklist.0.album.album_title}}</h1>
 
 <ol>
     {% for i in album_tracklist %}
@@ -13,9 +12,9 @@
     {% endfor %}
 </ol>
 
-{% if album_obj.0.album_stream %}    
+{% if album_tracklist.0.album.album_stream %}    
     <p>Stream: 
-        <a href='{{ album_obj.0.album_stream }}'>{{ album_obj.0.album_title }}</a>
+        <a href='{{ album_tracklist.0.album.album_stream }}'>{{ album_tracklist.0.album.album_title}}</a>
     </p>
 {% endif %}
 
