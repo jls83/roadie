@@ -11,6 +11,9 @@ class Song(models.Model):
     nick_tuning = models.CharField(max_length=20, default='Standard')
     joe_tuning = models.CharField(max_length=20, default='Standard')
 
+    class Meta:
+        ordering = ['simple_title']
+
     def save(self, *args, **kwargs):
         self.simple_title = slugify(self.song_title)
         super(Song, self).save(*args, **kwargs)
