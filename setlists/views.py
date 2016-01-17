@@ -2,6 +2,8 @@ from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.views import generic
 from .models import *
 
+# Index Views
+
 class MasterIndexView(generic.ListView):
     list_obj = []
 
@@ -23,13 +25,12 @@ class AlbumIndexView(MasterIndexView):
     context_object_name = 'album_list'
     list_obj = Album.objects.order_by('-album_date')
 
-class SongIndexView(generic.ListView):
+class SongIndexView(MasterIndexView):
     template_name = 'setlists/song_index.html'
     context_object_name = 'songs_list'
-    songs_list = Song.objects.order_by('song_title')
+    list_obj = Song.objects.order_by('song_title')
 
-    def get_queryset(self):
-        return self.songs_list
+# Detail Views
 
 class ShowDetailView(generic.ListView):
     model = Show
@@ -62,6 +63,12 @@ class AlbumDetailView(generic.ListView):
         context = super(AlbumDetailView, self).get_context_data(**kwargs)
         context['album_tracklist'] = self.album_list_gen(input_t)
         return context
+
+############################################################################
+
+
+
+############################################################################
 
 class SongDetailView(generic.DetailView):
     model = Song
