@@ -32,7 +32,7 @@ class SongIndexView(MasterIndexView):
 
 # Detail Views
 
-class ShowDetailView(generic.ListView):
+class ShowDetailView(generic.DetailView):
     model = Show
     template_name = 'setlists/show_detail.html'
     context_object_name = 'show_obj'
@@ -48,11 +48,11 @@ class ShowDetailView(generic.ListView):
         context['mas'] = self.show_list_gen(input_d)
         return context
 
-class AlbumDetailView(generic.ListView):
+class AlbumDetailView(generic.DetailView):
     model = Album
     template_name = 'setlists/album_detail.html'
     context_object_name = 'album_obj'
-    slug_field = 'album_title'
+    slug_field = 'simple_title'
     slug_url_kwarg = 'album'
 
     def album_list_gen(self, album_t):
