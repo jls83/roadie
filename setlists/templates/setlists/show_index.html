@@ -8,7 +8,7 @@
 <ul>
     {% for i in show_list %}
     <li>
-        <a href="{% url "show_detail" i %}">{{ i }}</a>
+        <a href="{% url "show_detail" i %}">{{ i }}</a> - {{ i.show_venue }}
     </li>
     {% endfor %}
 </ul>
