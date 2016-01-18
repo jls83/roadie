@@ -45,7 +45,7 @@ class ShowDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         input_d = self.kwargs['s_d']
         context = super(ShowDetailView, self).get_context_data(**kwargs)
-        context['mas'] = self.show_list_gen(input_d)
+        context['show_tracklist'] = self.show_list_gen(input_d)
         return context
 
 class AlbumDetailView(generic.DetailView):
