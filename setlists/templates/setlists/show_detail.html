@@ -8,17 +8,25 @@
 <h3>{{ show_obj.show_venue }}</h3>
 
 <p>{# I had to kludge this together to get the comma separation working correctly #}
+
 {% for song_obj in show_tracklist %}
     <a href="{% url "song_detail" song_obj.song.simple_title %}">
-        {{ song_obj.song.song_title }}</a>{% if not forloop.last %}{% if song_obj.track_segue %} > {% else %}, {% endif %}{% endif %}
-{% endfor %}
+        {{ song_obj.song.song_title }}
+    </a>
+
+    
+    {% if not forloop.last %}{% if song_obj.track_segue %} > {% else %}, {% endif %}{% endif %}{% endfor %}
+
 </p>
 
 {% if show_obj.show_notes %}
     <p>Notes: {{ show_obj.show_notes }}</p>
 {% endif %}
+
 {% if show_obj.show_stream %}
     <p>Stream: {{ show_obj.show_stream }}</p>
 {% endif %}
 
 {% endblock %}
+
+    {#<a href="{% url "song_detail" song_obj.song.simple_title %}">{{ song_obj.song.song_title }}</a>{% if not forloop.last %}{% if song_obj.track_segue %} > {% else %}, {% endif %}{% endif %}{% endfor %}#}

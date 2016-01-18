@@ -42,10 +42,20 @@ class ShowDetailView(generic.DetailView):
     def show_list_gen(self, show_d):
         return ShowRelation.objects.filter(show__show_date=show_d).order_by('track_position')
 
+    def song_notes_gen(self, s_list):
+        d = {}
+        count = 1
+        for i in s_list:
+            if i.track_notes:
+                d[i.song.song_title] = (count, i.track_notes)
+                count += 1
+        return d
+
     def get_context_data(self, **kwargs):
         input_d = self.kwargs['s_d']
         context = super(ShowDetailView, self).get_context_data(**kwargs)
         context['show_tracklist'] = self.show_list_gen(input_d)
+        context['show_songnotes'] = self.song_notes_gen( self.show_list_gen(input_d) )
         return context
 
 class AlbumDetailView(generic.DetailView):
