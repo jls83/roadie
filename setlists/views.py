@@ -47,7 +47,8 @@ class ShowDetailView(generic.DetailView):
         count = 1
         for i in s_list:
             if i.track_notes:
-                d[i.song.song_title] = (count, i.track_notes)
+                st_nospace = i.song.simple_title.replace('-', '')
+                d[st_nospace] = [count, i.track_notes]
                 count += 1
         return d
 

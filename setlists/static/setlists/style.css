@@ -48,3 +48,8 @@ h3 {
 .content {
     margin: 0 0 0 1em;
 }
+
+.note_super {
+    vertical-align: super;
+    font-size: smaller;
+}
