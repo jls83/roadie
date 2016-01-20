@@ -29,16 +29,20 @@
 -->
 </p>
 
+{% with rendered_notes=show_songnotes|listify %}
+<ul class='show_notes'>
+    {% for line in rendered_notes %}
+    <li>[{{ line.0 }}] {{ line.1 }}</li>
+    {% endfor %}
+</ul>
+{% endwith %}
+
 {% if show_obj.show_notes %}
     <p>Notes: {{ show_obj.show_notes }}</p>
 {% endif %}
-
-{{ show_songnotes }}
 
 {% if show_obj.show_stream %}
     <p>Stream: {{ show_obj.show_stream }}</p>
 {% endif %}
 
 {% endblock %}
-
-    {#<a href="{% url "song_detail" song_obj.song.simple_title %}">{{ song_obj.song.song_title }}</a>{% if not forloop.last %}{% if song_obj.track_segue %} > {% else %}, {% endif %}{% endif %}{% endfor %}#}
