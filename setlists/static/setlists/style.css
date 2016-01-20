@@ -52,3 +52,7 @@ h3 {
 .show_notes {
     list-style: none;
 }
+
+.prevnext a {
+    font-weight: bold;
+}

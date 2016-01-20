@@ -6,8 +6,20 @@
 
 {% block content %}
 
+<div class='prevnext'>
+    {% if show_prevnext.0 %}
+    <a href="{% url "show_detail" show_prevnext.0 %}">&lt;&lt; Previous Show</a>
+    {% else %}&lt;&lt; Previous Show
+    {% endif %}
+    |
+    {% if show_prevnext.1 %}
+    <a href="{% url "show_detail" show_prevnext.1 %}">Next Show &gt;&gt;</a>
+    {% else %}Next Show &gt;&gt;
+    {% endif %}
+</div>
+
 <h1>{{ show_obj.show_date }}</h1>
-<h3>{{ show_obj.show_venue }}</h3>
+<h3>{{ show_obj.show_venue }} - {{ show_obj.show_venue.venue_address }} </h3>
 
 <p>{# I had to kludge this together to get the comma separation working correctly #}
 
@@ -21,7 +33,7 @@
         -->{% endif %}<!--
     -->{% endwith %}<!--
     -->{% if not forloop.last %}<!--
-        -->{% if song_obj.track_segue %} > <!--
+        -->{% if song_obj.track_segue %} &gt; <!--
         -->{% else %}, <!--
         -->{% endif %}<!--
     -->{% endif %}<!--
@@ -38,7 +50,7 @@
 {% endwith %}
 
 {% if show_obj.show_notes %}
-    <p>Notes: {{ show_obj.show_notes }}</p>
+<p><em>Notes:</em> {{ show_obj.show_notes }}</p>
 {% endif %}
 
 {% if show_obj.show_stream %}

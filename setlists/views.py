@@ -52,11 +52,24 @@ class ShowDetailView(generic.DetailView):
                 count += 1
         return d
 
+    def prev_next_gen(self, show_d):
+        show_current = Show.objects.get(show_date=show_d)
+        try:
+            show_next = show_current.get_next_by_show_date()
+        except Show.DoesNotExist:
+            show_next = None
+        try:
+            show_prev = show_current.get_previous_by_show_date()
+        except Show.DoesNotExist:
+            show_prev = None
+        return [show_prev, show_next]
+
     def get_context_data(self, **kwargs):
         input_d = self.kwargs['s_d']
         context = super(ShowDetailView, self).get_context_data(**kwargs)
         context['show_tracklist'] = self.show_list_gen(input_d)
         context['show_songnotes'] = self.song_notes_gen( self.show_list_gen(input_d) )
+        context['show_prevnext'] = self.prev_next_gen(input_d)
         return context
 
 class AlbumDetailView(generic.DetailView):
