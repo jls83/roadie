@@ -7,6 +7,7 @@
 {% block content %}
 
 <div class='prevnext'>
+    {% spaceless %}
     {% if show_prevnext.0 %}
     <a href="{% url "show_detail" show_prevnext.0 %}">&lt;&lt; Previous Show</a>
     {% else %}&lt;&lt; Previous Show
@@ -16,17 +17,15 @@
     <a href="{% url "show_detail" show_prevnext.1 %}">Next Show &gt;&gt;</a>
     {% else %}Next Show &gt;&gt;
     {% endif %}
+    {% endspaceless %}
 </div>
 
 <h1>{{ show_obj.show_date }}</h1>
 <h3>{{ show_obj.show_venue }} - {{ show_obj.show_venue.venue_address }} </h3>
 
 <p>{# I had to kludge this together to get the comma separation working correctly #}
-
 {% for song_obj in show_tracklist %}
-    <a href="{% url "song_detail" song_obj.song.simple_title %}"><!--
-    -->{{ song_obj.song.song_title }}<!--
-    --></a><!--
+    <a href="{% url "song_detail" song_obj.song.simple_title %}">{{ song_obj.song.song_title }}</a><!--
     -->{% with simple=song_obj.song.simple_title|cut:"-" %}<!--
         -->{% if show_songnotes|numberize:simple %}<!--
         --><sup>[{{ show_songnotes|numberize:simple }}]</sup><!--
@@ -35,10 +34,9 @@
     -->{% if not forloop.last %}<!--
         -->{% if song_obj.track_segue %} &gt; <!--
         -->{% else %}, <!--
-        -->{% endif %}<!--
-    -->{% endif %}<!--
--->{% endfor %}<!--
--->
+        -->{% endif %}
+    {% endif %}
+{% endfor %}
 </p>
 
 {% with rendered_notes=show_songnotes|listify %}

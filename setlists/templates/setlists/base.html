@@ -1,26 +1,26 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" type="text/css" href="{% static 'setlists/style.css' %}" />
-        <link rel="shortcut icon" type="image/png" href="{% static 'setlists/favicon.ico' %}" />
-        <link href='https://fonts.googleapis.com/css?family=Cabin:400,700,600italic' rel='stylesheet' type='text/css'>
-        <title>{% block title %}Roadie{% endblock %}</title>
-    </head>
-    <body>
-        <div class='nav'>
-            {% block nav %}
-            <ul>
-                <li>roadie :: </li>
-                <li><a href="{% url "show_index" %}">Shows</a> - </li>
-                <li><a href="{% url "song_index" %}">Songs</a> - </li>
-                <li><a href="{% url "album_index" %}">Albums</a></li>
-            </ul>
-            {% endblock %}
-        </div>
-        <br /><br /><br />
-        <div class="content">
-            {% block content %}{% endblock %}
-        </div>
-    </body>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'setlists/style.css' %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'setlists/favicon.ico' %}" />
+    <link href='https://fonts.googleapis.com/css?family=Cabin:400,700,600italic' rel='stylesheet' type='text/css'>
+    <title>{% block title %}Roadie{% endblock %}</title>
+</head>
+<body>
+    <div class='nav'>
+        {% block nav %}
+        <ul>
+            <li>roadie :: </li>
+            <li><a href="{% url "show_index" %}">Shows</a> - </li>
+            <li><a href="{% url "song_index" %}">Songs</a> - </li>
+            <li><a href="{% url "album_index" %}">Albums</a></li>
+        </ul>
+        {% endblock %}
+    </div>
+    <br /><br /><br />
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
 </html>
