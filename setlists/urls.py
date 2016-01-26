@@ -14,5 +14,7 @@ urlpatterns = [
     #Song URLs
     url(r'^songs/$', views.SongIndexView.as_view(), name='song_index'),
     url(r'^songs/(?P<title>[\w-]+)/$', views.SongDetailView.as_view(), name='song_detail'),
-#    url(r'^notseen/(?P<title>[\w-]+)/$', views.song_not_seen, name='song_not_seen'),
+    #Venue URLs
+    url(r'^venues/$', views.VenueIndexView.as_view(), name='venue_index'),
+    url(r'^venues/(?P<venue>[\w-]+)/$', views.VenueDetailView.as_view(), name='venue_detail'),
 ]

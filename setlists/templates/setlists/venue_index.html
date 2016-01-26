@@ -1,0 +1,16 @@
+{% extends "setlists/base.html" %}
+
+{% block title %}Roadie -  All Venues{% endblock %}
+
+{% block content %}
+
+<h3>All Venues</h3>
+<ul>
+    {% for i in venue_list %}
+    <li>
+        <a href="{% url "venue_detail" i.simple_venue %}">{{ i }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -37,7 +37,12 @@ class Album(models.Model):
 
 class Venue(models.Model):
     venue_name = models.CharField(max_length=200)
+    simple_venue = models.SlugField(default='', editable=False)
     venue_address = models.CharField(max_length=200)
+
+    def save(self, *args, **kwargs):
+        self.simple_venue = slugify(self.venue_name)
+        super(Venue, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.venue_name
@@ -48,6 +53,9 @@ class Show(models.Model):
     show_stream = models.URLField(blank=True)
     show_notes = models.TextField(blank=True)
     show_tracks = models.ManyToManyField(Song, through='ShowRelation')
+
+    class Meta:
+        ordering = ['-show_date']
 
     def __str__(self):
         show_clean_date = self.show_date.strftime('%Y-%m-%d')

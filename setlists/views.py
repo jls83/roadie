@@ -30,6 +30,11 @@ class SongIndexView(MasterIndexView):
     context_object_name = 'songs_list'
     list_obj = Song.objects.order_by('song_title')
 
+class VenueIndexView(MasterIndexView):
+    template_name = 'setlists/venue_index.html'
+    context_object_name = 'venue_list'
+    list_obj = Venue.objects.order_by('venue_name')
+
 # Detail Views
 
 class ShowDetailView(generic.DetailView):
@@ -88,12 +93,6 @@ class AlbumDetailView(generic.DetailView):
         context['album_tracklist'] = self.album_list_gen(input_t)
         return context
 
-############################################################################
-
-
-
-############################################################################
-
 class SongDetailView(generic.DetailView):
     model = Song
     template_name = 'setlists/song_detail.html'
@@ -132,4 +131,21 @@ class SongDetailView(generic.DetailView):
         context['played_list'] = self.played_list_gen(in_s_t)
         context['album_list'] = self.album_list_gen(in_s_t)
         context['last_seen_info'] = self.song_not_seen(in_s_t)
+        return context
+
+class VenueDetailView(generic.DetailView):
+    model = Venue
+    template_name = 'setlists/venue_detail.html'
+    context_object_name = 'venue_obj'
+    slug_field = 'simple_venue'
+    slug_url_kwarg = 'venue'
+
+    def venue_shows_gen(self, v_id):
+        return Show.objects.filter(show_venue=v_id).order_by('-show_date')
+
+    def get_context_data(self, **kwargs):
+        input_v = self.kwargs['venue']
+        context = super(VenueDetailView, self).get_context_data(**kwargs)
+        venue_id = Venue.objects.get(simple_venue = input_v).id
+        context['venue_showlist'] = self.venue_shows_gen(venue_id)
         return context
