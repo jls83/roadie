@@ -21,7 +21,7 @@
 </div>
 
 <h1>{{ show_obj.show_date }}</h1>
-<h3>{{ show_obj.show_venue }} - {{ show_obj.show_venue.venue_address }} </h3>
+<h3><a href={% url "venue_detail" show_obj.show_venue.simple_venue %}>{{ show_obj.show_venue }}</a> - {{ show_obj.show_venue.venue_address }}</h3>
 
 <p>{# I had to kludge this together to get the comma separation working correctly #}
 {% for song_obj in show_tracklist %}

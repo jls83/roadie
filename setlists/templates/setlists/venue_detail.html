@@ -1,18 +1,22 @@
 {% extends "setlists/base.html" %}
 
 {% block title %}Roadie -  {{ venue_obj.venue_name }}{% endblock %}
+
 {% block content %}
+
 <h1>{{ venue_obj.venue_name }}</h1>
 <h3>{{ venue_obj.venue_address }}</h3>
 
-<h3>{{ venue_showlist|length }} shows have been played at this venue</h3>
+{% with venue_count=venue_showlist|length %}
+<h3>{{ venue_count }} show{{ venue_count|pluralize }} ha{{ venue_count|pluralize:"s,ve" }} been played at this venue</h3>
+{% endwith %}
 
-<ol>
+<ul>
     {% for i in venue_showlist %}
     <li>
-        <a href={% url "show_detail" i.show_date %}>{{ i.show_date }}</a>
+        <a href={% url "show_detail" i %}>{{ i }}</a>
     </li>
     {% endfor %}
-</ol>
+</ul>
 
 {% endblock %}
