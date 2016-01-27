@@ -1,4 +1,3 @@
-from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.views import generic
 from .models import *
 
@@ -115,14 +114,14 @@ class SongDetailView(generic.DetailView):
         p = ShowRelation.objects.filter(song__simple_title=title)
         result = []
         if p:
-            result = get_list_or_404(ShowRelation.objects.order_by('-show__show_date'), song__simple_title=title)
+            result = p
         return result
 
     def album_list_gen(self, title):
         a = AlbumRelation.objects.filter(song__simple_title=title)
         result = []
         if a:
-            result = get_list_or_404(AlbumRelation.objects.order_by('-album__album_date'), song__simple_title=title)
+            result = a
         return result
 
     def get_context_data(self, **kwargs):

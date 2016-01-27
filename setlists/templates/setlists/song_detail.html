@@ -14,13 +14,18 @@
 
 {% if played_list %}
     <h3>{{ song_info.song_title }} has been played {{ played_list|length }} times at the following shows:</h3>
-    <ul>
+    <table>
+        <tr>
+            <th>Show Date</th>
+            <th>Show Venue</th>
+        </tr>
         {% for i in played_list %}
-            <li>
-                <a href='{% url 'show_detail' i.show %}'>{{ i.show }}</a> - {{i.show.show_venue}}
-            </li>
+            <tr>
+                <td><a href='{% url 'show_detail' i.show %}'>{{ i.show }}</a></td>
+                <td><a href="{% url 'venue_detail' i.show.show_venue.simple_venue %}">{{ i.show.show_venue }}</a></td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
 
     {% if last_seen_info.1 > 0 %}
         <p>
@@ -35,8 +40,10 @@
     <h3>{{ song_info.song_title }} has never been played at a show!</h3>
 {% endif %}
 
-<p>Nick Tuning: {{ song_info.nick_tuning }}</p>
-<p>Derek Tuning: {{ song_info.derek_tuning }}</p>
-<p>Joe Tuning: {{ song_info.joe_tuning }}</p>
+<div id='tuning'>
+    <p>Nick Tuning: {{ song_info.nick_tuning }}</p>
+    <p>Derek Tuning: {{ song_info.derek_tuning }}</p>
+    <p>Joe Tuning: {{ song_info.joe_tuning }}</p>
+</div>
 
 {% endblock %}
