@@ -114,7 +114,7 @@ class SongDetailView(generic.DetailView):
         p = ShowRelation.objects.filter(song__simple_title=title)
         result = []
         if p:
-            result = p
+            result = p.order_by('-show__show_date')
         return result
 
     def album_list_gen(self, title):

@@ -2,7 +2,7 @@ from django.conf.urls import url
 
 from . import views
 
-app_name = 'setlists'
+app_name = 'roadie'
 urlpatterns = [
     url(r'^$', views.RecentShowView.as_view(), name='index'),
     #Show URLs

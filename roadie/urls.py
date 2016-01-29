@@ -20,5 +20,6 @@ from . import views
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^setlists/', include('setlists.urls'), name='setlists'),
+    url(r'^roadie/', include('setlists.urls'), name='setlists'),
+#    url(r'^setlists/', include('setlists.urls'), name='setlists'),
 ]

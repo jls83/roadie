@@ -25,6 +25,18 @@ h3 {
     font-style: italic;
 }
 
+th {
+    color: #d9d9d9;
+}
+
+tr, td {
+    border-bottom: 1px solid #404040;
+}
+
+th, td {
+    padding: 6px;
+}
+
 .nav {
     background-color: #1a1a1a;
     float: left;
