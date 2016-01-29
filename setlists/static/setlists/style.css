@@ -2,7 +2,42 @@ body {
     background-color: #333333;
     color: #b3b3b3;
     font-family: "Cabin",Helvetica,Arial,sans-serif;
-    margin: 1em;
+}
+
+#container{
+    width: 80%;
+    margin: 20px auto;
+}
+
+#nav {
+    background-color: #1a1a1a;
+    padding: 10px;
+    border-radius: 0.25em;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 0 10em 0 0;
+}
+
+#nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#nav li {
+    display: inline-block;
+}
+
+#content {
+    margin: 0 20em 0 1em;
+}
+
+#show_notes {
+    list-style: none;
+}
+
+#prevnext a {
+    font-weight: bold;
 }
 
 a {
@@ -37,34 +72,10 @@ th, td {
     padding: 6px;
 }
 
-.nav {
-    background-color: #1a1a1a;
-    float: left;
-    padding: 10px;
-    list-style: none;
-    font-weight: bold;
-    border-radius: 0.25em;
+sup {
+    line-height: 0;
 }
 
-.nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.nav li {
-    display: inline-block;
-    color: #b3b3b3;
-}
-
-.content {
-    margin: 0 0 0 1em;
-}
-
-.show_notes {
-    list-style: none;
-}
-
-.prevnext a {
-    font-weight: bold;
+p.setlist {
+    line-height: 1.5em;
 }
