@@ -6,12 +6,17 @@
 
 <h3>All Shows</h3>
 
-<ul>
+<table>
+    <tr>
+        <th>Show Date</th>
+        <th>Show Venue</th>
+    </tr>
     {% for i in show_list %}
-    <li>
-        <a href="{% url "show_detail" i %}">{{ i }}</a> - {{ i.show_venue }}
-    </li>
+        <tr>
+            <td><a href='{% url 'show_detail' i %}'>{{ i }}</a></td>
+            <td><a href="{% url 'venue_detail' i.show_venue.simple_venue %}">{{ i.show_venue }}</a></td>
+        </tr>
     {% endfor %}
-</ul>
+</table>
 
 {% endblock %}
