@@ -1,6 +1,6 @@
 # This script will take in a set, and associated per-song notes, and put out a dict in this format:
-# song_dict[title] = (track position, segue, per-track note)
-# Title and note are both strings, position is an integer, and segue is a boolean
+# song_dict[title] = (show date, track position, segue, per-track note)
+# Title and note are both strings, position is an integer, show date is a datetime object, and segue is a boolean
 
 import datetime
 
@@ -54,9 +54,11 @@ def SetDictAppendor(set_src, set_date):
         d[title] = (set_date, position, segue, note_dict[index])
     return d
 
-date_in = "2016-01-22"
-set_in = "Bison, Honey Hide > MGD, Broke, Nothing Was Learned*, Skinned Alive^"
-notes_in = "* Atypical jam to end, ^ with Andrew Krolikowski"
+date_in = "2014-05-16"
+venue_in = "Soul Sounds Records"
+addr_in = "Sayville, NY"
+set_in = "Honey Hide > MGD, Bunny In The Sun, King Midas, Nothing Was Learned, Broke, Seaturtles, Skinned Alive"
+notes_in = ""
 #date_in = raw_input("Show Date YYYY-MM-DD: ")
 #set_in = raw_input("Set: ")
 #notes_in = raw_input("Notes: ")
@@ -67,4 +69,5 @@ notes_out = NoteSplit(notes_in)
 note_dict = NoteDictAppendor(notes_out)
 set_dict = SetDictAppendor(set_out, date_out)
 
-print set_dict
+#for i in set_dict:
+    #print i
