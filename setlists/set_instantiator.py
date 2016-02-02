@@ -95,6 +95,28 @@ def set_create(d, v, a, n):
         sr = ShowRelation(song=son, show=shw, track_position=t_p, track_segue=t_s, track_notes=t_n)
         sr.save()
 
+def set_split(d, s, n):
+    date_out = DateCreator(date_in)
+    set_out = SetSplit(s)
+    notes_out = NoteSplit(n)
+    note_dict = NoteDictAppendor(notes_out)
+    set_dict = SetDictAppendor(set_out, date_out)
+    return set_dict
+
+def set_create2(d, v, a, n, s, p):
+    d_out = DateCreator(d)
+    shw = show_create(d_out, v, a, p)
+    s_dict = set_split(d, s, n)
+    for i in s_dict:
+        l = s_dict[i]
+        son = song_create(i)
+        shw = show_create(l[0], v, a, n)
+        t_p = l[1]
+        t_s = l[2]
+        t_n = l[3]
+        sr = ShowRelation(song=son, show=shw, track_position=t_p, track_segue=t_s, track_notes=t_n)
+        sr.save()
+
 
 date_in = "2014-05-10"
 venue_in = "Twisted Shamrock"
@@ -106,11 +128,4 @@ notes_in = "Actual setlist may have differed"
 #addr_in = raw_input("Show City, ST")
 #set_in = raw_input("Set: ")
 #notes_in = raw_input("Notes: ")
-
-date_out = DateCreator(date_in)
-set_out = SetSplit(set_in)
-notes_out = NoteSplit(notes_in)
-note_dict = NoteDictAppendor(notes_out)
-set_dict = SetDictAppendor(set_out, date_out)
-
 
