@@ -1,16 +1,40 @@
 {% extends "setlists/base.html" %}
 
+{% load songindexplayed %}
+
 {% block title %}Roadie -  All Songs{% endblock %}
 
 {% block content %}
 
 <h3>All Songs</h3>
-<ul>
-    {% for i in songs_list %}
-    <li>
-        <a href="{% url "song_detail" i.simple_title %}">{{ i }}</a>
-    </li>
-    {% endfor %}
-</ul>
 
+<table id='songs' class='tablesorter'>
+    <thead>
+    <tr>
+        <th>Song Title</th>
+        <th>Original Artist</th>
+        <th>Times Played</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for i in songs_list %}
+    <tr>
+        <td><a href="{% url "song_detail" i.simple_title %}">{{ i }}</a></td>
+        <td>{{ i.original_artist }}</td>
+        {% with st=i.simple_title %}
+        <td class='center'>{{ songs_times_played|playnum:st }}</td>
+        {% endwith %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script>
+$(document).ready(function()
+    {
+        $("#songs").tablesorter();
+    }
+);
+</script>
 {% endblock %}

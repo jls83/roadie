@@ -2,8 +2,8 @@ from django.utils.text import slugify
 from models import *
 import datetime
 
-def DateCreator(src):
-    s_date = datetime.datetime.strptime(src, "%Y-%m-%d").date()
+def DateCreator(d):
+    s_date = datetime.datetime.strptime(d, "%Y-%m-%d").date()
     return s_date
 
 def SetSplit(set_src):
@@ -15,7 +15,7 @@ def NoteSplit(note_src):
     note_split = note_src.split(', ')
     return note_split
 
-def SegueSet(src):
+def SegueSet(src): # Takes something like "Sucker>" and puts out segue info
     segue = False 
     title = src
     if src[-1] == '>':
@@ -23,7 +23,7 @@ def SegueSet(src):
         title = src[:-1]
     return title, segue
 
-def NoteSet(src):
+def NoteSet(src): # Takes "Sucker*" and returns the title and note glyph
     note = ''
     title = src
     if not src[-1].isalpha():
@@ -36,7 +36,7 @@ def SongSplit(song_src):
     song_note, song_title = NoteSet(song_mid_title)
     return song_title, song_segue, song_note
 
-def NoteDictAppendor(src):
+def NoteDictAppendor(src): # Creates dict of glyph, note
     d = {'':''}
     for i in src:
         idx = i.split(' ')[0]
@@ -44,7 +44,7 @@ def NoteDictAppendor(src):
         d[idx] = content
     return d
 
-def SetDictAppendor(set_src, set_date):
+def SetDictAppendor(set_src, set_date, note_dict):
     d = {}
     for i in set_src:
         position = set_src.index(i) + 1
@@ -96,11 +96,11 @@ def set_create(d, v, a, n):
         sr.save()
 
 def set_split(d, s, n):
-    date_out = DateCreator(date_in)
+    date_out = DateCreator(d)
     set_out = SetSplit(s)
     notes_out = NoteSplit(n)
     note_dict = NoteDictAppendor(notes_out)
-    set_dict = SetDictAppendor(set_out, date_out)
+    set_dict = SetDictAppendor(set_out, date_out, note_dict)
     return set_dict
 
 def set_create2(d, v, a, n, s, p):
@@ -118,14 +118,18 @@ def set_create2(d, v, a, n, s, p):
         sr.save()
 
 
-date_in = "2014-05-10"
-venue_in = "Twisted Shamrock"
-addr_in = "Babylon, NY"
-set_in = "King Midas, Honey Hide > Bunny In The Sun, MGD, Nothing Was Learned, Broke, Skinned Alive"
-notes_in = "Actual setlist may have differed"
-#date_in = raw_input("Show Date YYYY-MM-DD: ")
-#venue_in = raw_input("Show Venue: ")
-#addr_in = raw_input("Show City, ST")
-#set_in = raw_input("Set: ")
-#notes_in = raw_input("Notes: ")
+#date_in = "2014-05-10"
+#venue_in = "Twisted Shamrock"
+#addr_in = "Babylon, NY"
+#set_in = "King Midas, Honey Hide > Bunny In The Sun, MGD, Nothing Was Learned, Broke, Skinned Alive"
+#notes_in = "Actual setlist may have differed"
+def real_deal():
+    date_in = raw_input("Show Date YYYY-MM-DD: ")
+    venue_in = raw_input("Show Venue: ")
+    addr_in = raw_input("Show City, ST: ")
+    set_in = raw_input("Set: ")
+    notes_in = raw_input("Set Notes: ")
+    sn_in = raw_input("Show Notes: ")
 
+    set_create2(date_in, venue_in, addr_in, notes_in, set_in, sn_in)
+    print "{0} Created".format(date_in)

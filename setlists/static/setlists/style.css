@@ -79,3 +79,25 @@ sup {
 p.setlist {
     line-height: 1.5em;
 }
+
+th.headerSortUp {
+    background-color: #1a1a1a;
+    border-radius: 0.25em;
+}
+
+th.headerSortUp::after {
+    content: '\21e7';
+}
+
+th.headerSortDown {
+    background-color: #1a1a1a;
+    border-radius: 0.25em;
+}
+
+th.headerSortDown::after {
+    content: '\21e9';
+}
+
+.center {
+    text-align: center;
+}

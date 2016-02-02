@@ -29,6 +29,15 @@ class SongIndexView(MasterIndexView):
     context_object_name = 'songs_list'
     list_obj = Song.objects.order_by('song_title')
 
+    def times_played(self, l):
+        d = { i.simple_title: ShowRelation.objects.filter(song__simple_title=i.simple_title).count() for i in l }
+        return d
+    
+    def get_context_data(self, **kwargs):
+        context = super(SongIndexView, self).get_context_data(**kwargs)
+        context['songs_times_played'] = self.times_played(self.list_obj)
+        return context
+
 class VenueIndexView(MasterIndexView):
     template_name = 'setlists/venue_index.html'
     context_object_name = 'venue_list'
