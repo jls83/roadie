@@ -62,6 +62,7 @@ h3 {
 
 th {
     color: #d9d9d9;
+    line-height: 1.5em;
 }
 
 tr, td {
@@ -86,7 +87,7 @@ th.headerSortUp {
 }
 
 th.headerSortUp::after {
-    content: '\21e7';
+    content: '\21d1';
 }
 
 th.headerSortDown {
@@ -95,7 +96,7 @@ th.headerSortDown {
 }
 
 th.headerSortDown::after {
-    content: '\21e9';
+    content: '\21d3';
 }
 
 .center {

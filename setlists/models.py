@@ -53,6 +53,7 @@ class Show(models.Model):
     show_stream = models.URLField(blank=True)
     show_notes = models.TextField(blank=True)
     show_tracks = models.ManyToManyField(Song, through='ShowRelation')
+    show_accurate = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['-show_date']

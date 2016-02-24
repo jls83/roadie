@@ -21,6 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'w)8ph+5c2yh)^w_v==dzoyp1#h(r0xhhy!z16n17+szhh7h8m$'
+DJANGO_MYSQL_PASS = getpass.getpass("MySQL Password: ")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -74,7 +75,6 @@ WSGI_APPLICATION = 'roadie.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-DJANGO_MYSQL_PASS = getpass.getpass("MySQL Password: ")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

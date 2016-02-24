@@ -65,7 +65,10 @@ def venue_get(v, a):
         return ven
 
 def song_create(s):
-    st = slugify(s)
+    if s.split('/') == s:
+        st = slugify(s)
+    else:
+        st = s.split('/')[-1]
     try:
         son = Song.objects.get(simple_title=st)
     except Song.DoesNotExist:
